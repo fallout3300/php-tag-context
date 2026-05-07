@@ -1,10 +1,58 @@
 {
     "name": "php-tag-context",
     "displayName": "PHP Tag Context",
-    "description": "Tracks cursor position inside <?php ?> blocks",
-    "version": "0.1.0",
+    "description": "Tracks cursor position inside <?php ?> blocks for flexible keybindings",
+    "version": "0.2.0",
     "publisher": "you",
     "engines": { "vscode": "^1.80.0" },
-    "activationEvents": ["onLanguage:php"],
-    "main": "./extension.js"
-}
+    "activationEvents": ["*"],
+    "main": "./extension.js",
+    "contributes": {
+      "configuration": {
+        "title": "PHP Tag Context",
+        "properties": {
+          "phpTagBreaker.enabledLanguages": {
+            "type": "array",
+            "items": { "type": "string" },
+            "default": ["php"],
+            "markdownDescription": "A list of `LanguageID' files where the context of PHP tags is monitored. Example: `['php', 'phtml', 'blade', 'html']`"
+          }
+        }
+      },
+      "commands": [],
+      "keybindings": [
+        {
+            "key": "alt+shift+p",
+            "command": "editor.action.insertSnippet",
+            "when": "editorTextFocus && phpTagBreaker.isInsidePhpBlock",
+            "args": {
+                "snippet": "?>\n${TM_SELECTED_TEXT}$0\n<?php"
+            }
+        },
+        {
+            "key": "alt+shift+p",
+            "command": "editor.action.insertSnippet",
+            "when": "editorTextFocus && !phpTagBreaker.isInsidePhpBlock",
+            "args": {
+                "snippet": "<?php\n${TM_SELECTED_TEXT}$0\n?>"
+            }
+        },
+        {
+            "key": "alt+p",
+            "command": "editor.action.insertSnippet",
+            "when": "editorTextFocus && phpTagBreaker.isInsidePhpBlock",
+            "args": {
+                "snippet": "?> ${TM_SELECTED_TEXT}$0 <?php"
+            }
+        },
+        {
+            "key": "alt+p",
+            "command": "editor.action.insertSnippet",
+            "when": "editorTextFocus && !phpTagBreaker.isInsidePhpBlock",
+            "args": {
+                "snippet": "<?php ${TM_SELECTED_TEXT}$0 ?>"
+            }
+        }
+      ]
+    }
+  }
