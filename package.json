@@ -1,0 +1,10 @@
+{
+    "name": "php-tag-context",
+    "displayName": "PHP Tag Context",
+    "description": "Tracks cursor position inside <?php ?> blocks",
+    "version": "0.1.0",
+    "publisher": "you",
+    "engines": { "vscode": "^1.80.0" },
+    "activationEvents": ["onLanguage:php"],
+    "main": "./extension.js"
+}
