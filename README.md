@@ -1,10 +1,7 @@
-## Краткое Описание
+# Short Description
+This VS Code extension allows you to conveniently insert PHP tags, for example `<?php | ?>`, or if you are already inside, break them into `?> | <?php`, using the `alt+p` shortcut, or `alt+shift+p` for the version with line breaks.
 
-Этот плагин для VS Code позволяет удобно вставлять **php** теги, например `<?php | ?>`, или если вы уже находитесь внутри разрывать их `?> | <?php`, с помощью сочетания клавиш **alt+p**, или **alt+shift+p** для варианта с переносом строк.
-
----
-
-### Примеры
+# Examples
 ```php
 // alt + p
 <?php | ?>
@@ -15,7 +12,7 @@
 ?>
 ```
 ```php
-// Разрыв тега, внутри php
+// Breaking a tag from inside PHP
 <?php
 
 // alt + p
@@ -28,7 +25,7 @@
 
 ?>
 ```
-### Так же работает оборачивание, при выделении
+### Wrapping also works when text is selected
 ```php
 // alt + p
 <?php echo Hello World;| ?>
@@ -41,43 +38,37 @@
 
 ?>
 ```
----
 
-## Почему это не сделать на обычных сниппетах?
+## Why not just use regular snippets?
+Basic insertion of `<?php | ?>` can be done with snippets, but you cannot determine whether you are inside or outside a PHP tag.
+Therefore, the main purpose of this extension is to track the cursor position inside PHP tags. It creates a custom context `"phpTagBreaker.isInsidePhpBlock"`.
 
-Обычную вставку `<?php | ?>` можно сделать на сниппетах, но вы не можете понять находитесь вы внутри **php** тега, или снаружи.
+## Custom Snippets
+Based on this `"phpTagBreaker.isInsidePhpBlock"`, you can configure any actions in `keybindings.json`.
 
-Поэтому основная цель этого расширения - это отслеживание нахождения курсора внутри **php** тега, оно создает кастомное событие `"phpTagBreaker.isInsidePhpBlock"`
-
-## Кастомные сниппеты
-
-На основе этого `"phpTagBreaker.isInsidePhpBlock"` вы можете делать любые действия в `keybindings.json`
-
-### Пример
+### Example
 ```json
 {
-    "key": "alt+p",
+    "key": "alt+shift+p",
     "command": "editor.action.insertSnippet",
     "when": "editorTextFocus && phpTagBreaker.isInsidePhpBlock",
     "args": {
-        "snippet": "?> ${TM_SELECTED_TEXT}$0 <?php"
+        "snippet": "?>\n${TM_SELECTED_TEXT}$0\n<?php"
     }
 },
 ```
-> Это пример кода из самого расширения, он проверяет что находится внутри тега php, и оборачивает выделенные текст.
+> This is an example from the extension itself. It checks if the cursor is inside a PHP tag, then wraps the selected text.
 
-## Сборка
+## Building
+To build the extension, install Node.js (if you haven't already), download the repository, and run the command `npx @vscode/vsce package --no-dependencies` in the project root. This will create the `php-tag-context-0.2.0.vsix` file.
 
-Для сборки установите node js (если его еще нет), скачайте репозиторий, и в корне проекта выполните команду `npx @vscode/vsce package --no-dependencies`, она создаст файл **php-tag-context-0.2.0.vsix**.
+## Installing from a .vsix File
+### Via Command Line
+Simply run the command `code --install-extension php-tag-context-0.2.0.vsix` in the same terminal.
 
-### Установка из файла **.vsix**
-
-#### Командой
-
-Просто выполните все в том же терминале команду `code --install-extension php-tag-context-0.2.0.vsix`.
-
-#### Через VS Code
-Затем в VS Code на панели расширений, нажимаете на три точка в верхнем правом углу, выбираете самый последний пункт `Install from VSIX...`, и выбираете свой свежеиспеченный **php-tag-context-0.2.0.vsix**. Готово!
+### Via VS Code
+Then, in VS Code, open the Extensions panel, click the three dots in the top right corner, select `Install from VSIX...` at the bottom of the list, and choose your newly created `php-tag-context-0.2.0.vsix` file. Done!
 
 ---
-> *Я не умею писать расширения, я просто навайбкодил его с помощью qwen, получилось лучше чем я думал*
+
+> I don't know how to write extensions. I just vibecoded it with Qwen. It turned out better than I expected.
