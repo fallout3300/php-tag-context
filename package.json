@@ -6,10 +6,13 @@
         "url": "https://github.com/fallout3300/php-tag-context"
     },
     "name": "php-tag-context",
+    "categories": ["Snippets", "Programming Languages"],
+    "keywords": ["php", "snippets", "keybindings", "productivity"],
+    "icon": "icon.png",
     "displayName": "PHP Tag Context",
-    "description": "Tracks cursor position inside <?php ?> blocks for flexible keybindings",
+    "description": "Smart snippets for open/close php tags",
     "version": "0.2.0",
-    "publisher": "you",
+    "publisher": "fallout3300",
     "engines": {
         "vscode": "^1.80.0"
     },
