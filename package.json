@@ -11,7 +11,7 @@
     "icon": "icon.png",
     "displayName": "PHP Tag Context",
     "description": "Smart snippets for open/close php tags",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "publisher": "fallout3300",
     "engines": {
         "vscode": "^1.80.0"
